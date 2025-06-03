@@ -1,0 +1,504 @@
+/* 加载等待页面的样式 */
+#loadingPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: pink; /* 背景半透明 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 确保加载页面覆盖在最前面 */
+  color: #fff; /* 白色字体 */
+}
+
+#loadingImage {
+  height: 100%;  /* 使图片宽度填满整个屏幕 */
+  max-width: 500px; /* 限制图片的最大宽度 */
+  //max-height: 300px; /* 限制图片的最大高度 */
+  object-fit: contain; /* 确保图片按比例缩放 */
+  margin-bottom: 20px;
+}
+
+#progressBarContainer {
+  width: 80%; /* 进度条宽度 */
+  max-width: 500px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#progressBar {
+  width: 0%;
+  height: 20px;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f8f8f8;
+}
+#map {
+  width: 100%;
+  height: 100vh; /* 地图全屏 */
+}
+/* 弹窗样式 */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+.modal img {
+  width: 100%;
+  border-radius: 8px;
+}
+.modal h2 {
+  margin: 10px 0;
+}
+.modal p {
+  font-size: 14px;
+  color: #555;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ---------------------------
+   秀洲风格自定义 Marker 样式（保持原有代码）
+--------------------------- */
+.custom-content-marker {
+    position: relative;
+    z-index: 1;
+    height: 1.50667rem;
+    min-width: 9rem;
+    border-radius: .53333rem;
+    font-size: .8rem;
+    box-sizing: border-box;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    word-break: keep-alls;
+    cursor: pointer
+}
+
+.custom-content-marker:after,.custom-content-marker:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    z-index: 0
+}
+
+.custom-content-marker:before {
+    border-top: .13333rem solid transparent;
+    border-bottom: .13333rem solid transparent;
+    border-left: .10667rem solid transparent;
+    border-right: .10667rem solid transparent;
+    bottom: -.24rem;
+    left: .24rem;
+    z-index: 9
+}
+
+.custom-content-marker:after {
+    border-top: .16rem solid transparent;
+    border-bottom: .16rem solid transparent;
+    border-left: .18667rem solid transparent;
+    border-right: .18667rem solid transparent;
+    bottom: -.34667rem;
+    left: .16rem;
+    z-index: 8
+}
+
+.custom-content-marker .marker-icon {
+    display: inline-block;
+    z-index: 11;
+    width: 1.53333rem;
+    height:1.53333rem;
+    //border-radius: .8rem;/*可改边缘棱角*/
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 1.37333rem;
+    border: .05333rem solid transparent;
+    margin-left: .05333rem;
+    margin-right: .16rem
+}
+
+.custom-content-marker .marker-label {
+    line-height: .64rem
+}
+
+/*可改样式颜色*/
+.custom-content-marker.marker-theme-1 {
+    color: green;
+    //background: linear-gradient(90deg,#47abff,#4d74ff);
+  background:#fff;
+    border: .08rem solid transparent
+}
+
+.custom-content-marker.marker-theme-1:after,.custom-content-marker.marker-theme-1:before {
+    border-top-color: #47abff
+}
+
+.custom-content-marker.marker-theme-1 .marker-icon {
+
+  background-color: #fff;
+    border-color: #fff;
+}
+
+
+/* ---------------------------
+   新增：图片轮播区域样式
+--------------------------- */
+#carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 15px; /* 与标题间距 */
+}
+#carousel {
+  display: flex;
+  transition: transform 0.3s ease-in-out; /* 切换动画 */
+}
+/* 每个轮播项占满整个容器宽度 */
+.carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+.carousel-item img {
+  width: 100%;
+  display: block;
+}
+/* 轮播按钮样式 */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+#prevBtn {
+  left: 10px;
+}
+#nextBtn {
+  right: 10px;
+}
+
+#navButton {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+#navButton:hover {
+  background-color: #0056b3;
+}
+
+
+/* 页面底部美食和住宿栏目的样式 */
+.section-container {
+  position: fixed;
+  bottom: 0.5em;
+  left: 0;
+  right:20px;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+  opacity: 0.8;
+  box-shadow:
+    inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  padding-top: 10px;
+  display: flex;  /* 并排显示 */
+  justify-content: space-around; /* 两个栏目之间有间距 */
+}
+.section {
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  width: 30%;  /* 使两者并列显示，占据一半宽度 */
+}
+
+/* 新增：底部栏目图标样式 */
+.section-icon {
+  text-align: center;
+  margin-bottom: 0;
+}
+.section-icon img {
+  width: 30px;    /* 图标较大 */
+  height: 30px;
+  object-fit: contain;
+}
+.section-label {
+  font-size: 10px; /* 文字较小 */
+  color: #333;
+  text-shadow: 1px 1px 2px pink;
+}
+
+
+
+h2 {
+  font-size: 16px;
+  color: #333;
+}
+.section-items {
+  display: none;  /* 初始隐藏 */
+  position: absolute;
+  bottom: 100%; /* 子项列表从上方展开 */
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  max-height: 200px;/* 限制高度，最多显示5个商家 */
+  overflow-y: auto;/* 支持下滑查看更多 */
+  padding: 10px;
+  
+
+}
+.section-items.open {
+     display: flex;
+  flex-wrap: wrap;            /* 多行显示，自动换行 */
+  gap: 10px;                  /* 设置间隔 */
+}
+.section-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  width: 48%;
+}
+.section-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.section-item p {
+  margin: 0;
+  font-size: 14px;
+}
+@media (max-width: 768px) {
+    .food-item {
+        width: 100%; /* 在小屏设备上改为单列显示 */
+    }
+}
+
+/* 商家详情弹窗 */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  background: white;
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+.modal img {
+  width: 100%;
+  border-radius: 8px;
+}
+.modal h3 {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+}
+.modal p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #555;
+}
+#merchantNavButton {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+#merchantNavButton:hover {
+  background-color: #0056b3;
+}
+
+/* 新增商家轮播专属样式 */
+#merchantCarouselContainer {
+  margin-bottom: 15px;
+}
+#merchantCarousel .carousel-item img {
+  max-height: 400px; /* 限制商家图片高度 */
+  object-fit: cover;
+}
+
+
+
+
+
+/* ---------------------------
+   右侧推荐路线按钮与菜单样式
+--------------------------- */
+.route-button {
+  position: fixed;
+  right: 10px;
+  top: 20%;
+  transform: translateY(-50%);
+  width: 45px;   /* 增大宽度以容纳图标和文字 */
+  padding: 5px 0;
+  background-color: #007bff;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 200;
+}
+.route-icon {
+  width: 20px;   /* 图标较大 */
+  height: 20px;
+  display: block;
+  margin: 0 auto;
+}
+.route-text {
+  font-size: 10px;   /* 文字较小 */
+  color: white;
+  margin-top: 3px;
+}
+.route-menu {
+  position: fixed;
+  right: 10px;
+  top: 20%;
+  transform: translateY(-50%);
+  width: 130px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  padding-left: 15px;
+  display: none;              /* 默认隐藏 */
+  z-index: 199;
+}
+.route-item {
+  margin-bottom: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #007bff;
+  text-align: left;
+  vertical-align: middle;
+}
+.route-item:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* ---------------------------
+   推荐路线详情弹窗中增加图片区域
+--------------------------- */
+.route-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+
+/* 商家详情弹窗（原为单图显示，现改为多图轮播） */
+/* 注意：已将原来的 #merchantImage 替换为轮播结构 */
+
+/* ---------------------------
+   新增：商家详情轮播专属样式
+--------------------------- */
+/* 商家轮播容器 */
+#merchantCarouselContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 15px; /* 与文本间距 */
+}
+/* 商家轮播内层容器 */
+#merchantCarousel {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+/* 轮播项同样适用 .carousel-item 样式 */
+.carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+/* 商家轮播按钮，继承 carousel-btn 样式 */
+#merchantPrevBtn, #merchantNextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+#merchantPrevBtn {
+  left: 10px;
+}
+#merchantNextBtn {
+  right: 10px;
+}
+
+
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>王店镇文旅地图</title>
+  <!-- 高德地图 API 脚本 -->
+  <script type="text/javascript">
+  window._AMapSecurityConfig = {
+      securityJsCode:'28cf541afaf0c729ad9f1879a6fa636b', 
+  }
+</script>
+  <script src="https://webapi.amap.com/maps?v=2.0&key=9002088257373e96b3388ee71e89d43a"&plugin=AMap.DistrictSearch,AMap.Polygon,Amap></script>
+</head>
+<body>
+  
+    <!-- 加载等待页面 -->
+  <div id="loadingPage">
+    <img id="loadingImage" src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E8%B6%A3%E6%B8%B8%E7%8E%8B%E5%BA%97.png" alt="加载中..."> <!-- 替换为你的加载图片地址 -->
+    <div id="progressBarContainer">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- 地图容器 -->
+  <div id="map"></div>
+
+
+  
+   <!-- 景点详情弹窗（修改为支持图片轮播） -->
+  <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation();">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <!-- 轮播区域 -->
+      <div id="carousel-container">
+        <!-- 左侧切换按钮 -->
+        <button id="prevBtn" class="carousel-btn">‹</button>
+        <!-- 图片轮播主体，轮播项会动态生成 -->
+        <div id="carousel"></div>
+        <!-- 右侧切换按钮 -->
+        <button id="nextBtn" class="carousel-btn">›</button>
+      </div>
+      <!-- 标题和描述 -->
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      
+          <!-- 新增：导航按钮 -->
+    <button id="navButton" onclick="startNavigation()">到这里去</button>
+    </div>
+  </div>
+  
+  <!-- 页面底部的畅游与美食栏目（并列显示，子栏目向上展开） -->
+  <div class="section-container">
+    <!-- 畅游栏目 -->
+    <div class="section" id="playSection">
+      <!-- 新增图标区域 -->
+      <div class="section-icon">
+        <img src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E7%95%85%E6%B8%B8icon.png" alt="畅游图标">
+      </div>
+      <!-- 文字标签 -->
+      <div class="section-label">畅游梅里</div>
+      <div class="section-items" id="playItems"></div>
+    </div>
+    <!-- 美食栏目 -->
+    <div class="section" id="foodSection">
+      <div class="section-icon">
+        <img src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E7%BE%8E%E9%A3%9Ficon.png" alt="美食图标">
+      </div>
+      <div class="section-label">寻味梅里</div>
+      <div class="section-items" id="foodItems"></div>
+    </div>
+  </div>
+  
+
+  
+  <!-- 商家详情弹窗（修改为支持多图轮播） -->
+  <div id="merchantModal" class="modal-overlay" onclick="closeMerchantModal()">
+    <div class="modal" onclick="event.stopPropagation();">
+      <span class="close" onclick="closeMerchantModal()">&times;</span>
+      <!-- 商家轮播区域 -->
+      <div id="merchantCarouselContainer">
+        <!-- 左侧切换按钮 -->
+        <button id="merchantPrevBtn" class="carousel-btn">‹</button>
+        <!-- 商家图片轮播主体，轮播项会动态生成 -->
+        <div id="merchantCarousel"></div>
+        <!-- 右侧切换按钮 -->
+        <button id="merchantNextBtn" class="carousel-btn">›</button>
+      </div>
+      <!-- 商家文本信息 -->
+      <h3 id="merchantName"></h3>
+      <p id="merchantDescription"></p>
+      <p><strong>联系方式:</strong> <span id="merchantContact"></span></p>
+      <button id="merchantNavButton" onclick="startMerchantNavigation()">到这里去</button>
+    </div>
+  </div>
+  
+  
+  <!-- 新增：推荐路线详情弹窗，用于显示路线文字说明及图片 -->
+  <div id="routeModal" class="modal-overlay" onclick="toggleRouteModal(false)">
+    <div class="modal" onclick="event.stopPropagation();">
+      <span class="close" onclick="toggleRouteModal(false)">&times;</span>
+      <!-- 新增路线图片区域 -->
+      <img id="routeImage" src="" alt="路线图片" class="route-image">
+      <h3 id="routeTitle"></h3>
+      <p id="routeExplanation"></p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+
+  <!-- 右侧推荐路线按钮 -->
+  <div id="routeButton" class="route-button" onclick="toggleRouteMenu()">
+    <img src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E6%8E%A8%E8%8D%90%E8%B7%AF%E7%BA%BFicon.png" alt="路线图标" class="route-icon">
+    <div class="route-text">推荐路线</div>
+  </div>
+  <!-- 推荐路线子项 -->
+  <div id="routeMenu" class="route-menu">
+    <div class="route-item" onclick="selectRoute('south')">南线之旅</div>
+    <div class="route-item" onclick="selectRoute('north')">北线之旅</div>
+  </div>
+  
+</body>
+</html>
