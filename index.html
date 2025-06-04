@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-
-<link rel="stylesheet" type="text/css" href="style.css">
-  
+<link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>王店镇文旅地图</title>
-  <!-- 高德地图 API 脚本 -->
-
 </head>
 <body>
+  
 
-      <!-- 加载等待页面 -->
+
+    <!-- 加载等待页面 -->
   <div id="loadingPage">
     <img id="loadingImage" src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E8%B6%A3%E6%B8%B8%E7%8E%8B%E5%BA%97.png" alt="加载中..."> <!-- 替换为你的加载图片地址 -->
     <div id="progressBarContainer">
@@ -21,18 +19,18 @@
   </div>
   
   
+  
   <!-- 地图容器 -->
   <div id="map"></div>
+<!-- 高德地图 API 脚本 -->
   <script type="text/javascript">
   window._AMapSecurityConfig = {
       securityJsCode:'28cf541afaf0c729ad9f1879a6fa636b', 
   }
 </script>
   <script src="https://webapi.amap.com/maps?v=2.0&key=9002088257373e96b3388ee71e89d43a"&plugin=AMap.DistrictSearch,AMap.Polygon,Amap></script>
-  
-    <script src="script.js"></script>
-  
 
+<script src="script.js"></script>
   
    <!-- 景点详情弹窗（修改为支持图片轮播） -->
   <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
