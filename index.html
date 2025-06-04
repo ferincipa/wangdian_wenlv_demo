@@ -12,6 +12,17 @@
 </head>
 <body>
 
+      <!-- 加载等待页面 -->
+  <div id="loadingPage">
+    <img id="loadingImage" src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E8%B6%A3%E6%B8%B8%E7%8E%8B%E5%BA%97.png" alt="加载中..."> <!-- 替换为你的加载图片地址 -->
+    <div id="progressBarContainer">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+  
+  
+  <!-- 地图容器 -->
+  <div id="map"></div>
   <script type="text/javascript">
   window._AMapSecurityConfig = {
       securityJsCode:'28cf541afaf0c729ad9f1879a6fa636b', 
@@ -21,19 +32,6 @@
   
     <script src="script.js"></script>
   
-    <!-- 加载等待页面 -->
-  <div id="loadingPage">
-    <img id="loadingImage" src="https://wangdian-wenlv.oss-cn-beijing.aliyuncs.com/%E8%B6%A3%E6%B8%B8%E7%8E%8B%E5%BA%97.png" alt="加载中..."> <!-- 替换为你的加载图片地址 -->
-    <div id="progressBarContainer">
-      <div id="progressBar"></div>
-    </div>
-  </div>
-  
-
-  
-  <!-- 地图容器 -->
-  <div id="map"></div>
-
 
   
    <!-- 景点详情弹窗（修改为支持图片轮播） -->
