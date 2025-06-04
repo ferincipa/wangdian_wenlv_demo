@@ -8,14 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>王店镇文旅地图</title>
   <!-- 高德地图 API 脚本 -->
+
+</head>
+<body>
+
   <script type="text/javascript">
   window._AMapSecurityConfig = {
       securityJsCode:'28cf541afaf0c729ad9f1879a6fa636b', 
   }
 </script>
   <script src="https://webapi.amap.com/maps?v=2.0&key=9002088257373e96b3388ee71e89d43a"&plugin=AMap.DistrictSearch,AMap.Polygon,Amap></script>
-</head>
-<body>
+  
+    <script src="script.js"></script>
   
     <!-- 加载等待页面 -->
   <div id="loadingPage">
@@ -25,7 +29,7 @@
     </div>
   </div>
   
-  <script src="script.js" type="text/javascript"></script>
+
   
   <!-- 地图容器 -->
   <div id="map"></div>
